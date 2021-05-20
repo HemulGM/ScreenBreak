@@ -1,0 +1,108 @@
+unit Unit14;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, FMX.Types, FMX.Controls, FMX.Forms,
+  FMX.Graphics, FMX.Dialogs, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, FMX.Layouts;
+
+type
+  TForm14 = class(TForm)
+    Button1: TButton;
+    Line1: TLine;
+    Timer1: TTimer;
+    Line2: TLine;
+    LayoutLines: TLayout;
+    Timer2: TTimer;
+    procedure Button1Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure Timer2Timer(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure FormPaint(Sender: TObject; Canvas: TCanvas; const ARect: TRectF);
+    procedure FormCreate(Sender: TObject);
+  private
+    FBMP: TBitmap;
+  public
+    { Public declarations }
+  end;
+
+var
+  Form14: TForm14;
+
+implementation
+
+uses
+  HGM.Screenshot;
+
+{$R *.fmx}
+
+procedure TForm14.Button1Click(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TForm14.FormCreate(Sender: TObject);
+begin
+  FBMP := TBitmap.Create;
+end;
+
+procedure TForm14.FormDestroy(Sender: TObject);
+begin
+  Timer1.Enabled := False;
+  Timer2.Enabled := False;
+  FBMP.Free;
+end;
+
+procedure TForm14.FormPaint(Sender: TObject; Canvas: TCanvas; const ARect: TRectF);
+var
+  R: TRectF;
+begin
+  if not FBMP.IsEmpty then
+  begin
+    R := TRectF.Create(TPointF.Create(Random(Width), Random(Height)), Random(Width), Random(Height));
+    Canvas.DrawBitmap(FBMP, R, R, 1, True);
+  end;
+end;
+
+procedure TForm14.Timer1Timer(Sender: TObject);
+var
+  i: Integer;
+begin
+  while LayoutLines.ControlsCount > 0 do
+    LayoutLines.Controls[0].Free;
+  for i := 0 to Random(10) do
+  begin
+    with TLine.Create(LayoutLines) do
+    begin
+      HitTest := False;
+      Parent := LayoutLines;
+      Align := TAlignLayout.Horizontal;
+      LineType := TLineType.Top;
+      Position.Y := Random(ClientHeight);
+      Size.Height := Random(5);
+      case Random(10) mod 2 of
+        0:
+          Stroke.Color := TAlphaColorRec.Fuchsia;
+      else
+        Stroke.Color := TAlphaColorRec.Lime;
+      end;
+      Stroke.Thickness := Size.Height;
+    end;
+  end;
+end;
+
+procedure TForm14.Timer2Timer(Sender: TObject);
+var
+  Stream: TMemoryStream;
+begin
+  Stream := TMemoryStream.Create;
+  try
+    TakeScreenshot(Stream);
+    FBMP.LoadFromStream(Stream);
+  finally
+    Stream.Free;
+  end;
+end;
+
+end.
+

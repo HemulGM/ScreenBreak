@@ -1,0 +1,54 @@
+object Form14: TForm14
+  Left = 0
+  Top = 0
+  Caption = 'Form14'
+  ClientHeight = 566
+  ClientWidth = 1045
+  Transparency = True
+  FormStyle = StayOnTop
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  FullScreen = True
+  DesignerMasterStyle = 0
+  object LayoutLines: TLayout
+    Align = Contents
+    Size.Width = 1045.000000000000000000
+    Size.Height = 566.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    object Line1: TLine
+      Align = Horizontal
+      LineType = Top
+      Position.Y = 376.000000000000000000
+      Size.Width = 1045.000000000000000000
+      Size.Height = 9.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Color = claFuchsia
+      Stroke.Thickness = 5.000000000000000000
+    end
+    object Line2: TLine
+      Align = Horizontal
+      LineType = Top
+      Position.Y = 384.000000000000000000
+      Size.Width = 1045.000000000000000000
+      Size.Height = 9.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Color = claLime
+      Stroke.Thickness = 5.000000000000000000
+    end
+  end
+  object Button1: TButton
+    Position.X = 104.000000000000000000
+    Position.Y = 80.000000000000000000
+    TabOrder = 0
+    Text = 'Button1'
+    OnClick = Button1Click
+  end
+  object Timer1: TTimer
+    Interval = 10
+    OnTimer = Timer1Timer
+    Left = 520
+    Top = 216
+  end
+end

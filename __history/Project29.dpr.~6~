@@ -1,0 +1,16 @@
+program Project29;
+
+uses
+  System.StartUpCopy,
+  FMX.Forms,
+  Winapi.Windows,
+  Unit14 in 'Unit14.pas' {Form14};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TForm14, Form14);
+  ShowWindow(ApplicationHWND, SW_HIDE);
+  Application.Run;
+end.
